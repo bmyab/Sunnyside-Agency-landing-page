@@ -1,0 +1,191 @@
+$breakpoints: (
+  mobile: 600px,
+  tablet: 800px,
+  laptop-sm: 1024px,
+  laptop: 1240px,
+  desktop-lg: 1800px
+);
+
+@mixin breakpoint($breakpoint, $direction) {
+
+  // Get the breakpoint value.
+  $breakpoint-value: map-get($breakpoints, $breakpoint);
+  
+  @if $direction == min {
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  }
+} 
+
+//MOBILE
+.header{
+  @include breakpoint(mobile,min ){
+    background-position: bottom;
+  }
+}
+//tablet
+.header{
+  @include breakpoint(tablet,min ){
+    color: white;
+    .nav{
+      --state-close:scale(0);
+      --state-hamburguer:scale(0);
+      --state-menu:translate(0);
+      color: white;
+
+      &:target{
+        --state-close:scale(0);
+        color: white;
+
+      }
+
+      &__links{
+        padding: 0;
+        background-color: transparent;
+        position: unset;
+        color: white;
+
+      
+        gap: 2.5rem;
+        grid-auto-flow: column;
+        grid-column: -2/-1;
+        grid-row: 1/2;
+
+        width: 100%;
+
+        &:before{
+          top: -300px;
+        
+        }
+  
+        .nav__item{
+          list-style: none;
+          font-size: 1.5rem;
+          
+          .nav__link{
+            color: white;
+  
+            &:hover{
+              text-decoration: underline;
+              color: #eee;
+            }
+  
+            &-m{
+  
+              background-color: white;
+              color: #333;
+  
+              &:hover{
+                border: none;
+                color: white;
+                background-color: transparentize(#000, $amount: 0.8);
+              }
+            }
+          }
+        }
+
+      }
+    }
+    
+  }
+}
+.main{
+  @include breakpoint(tablet, min){
+    
+    .services{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+    }
+
+    .testimonials{
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+
+      .subtitle-sm{
+        grid-column: 1/-1;
+        justify-self: center;
+      }
+      
+    }
+  }
+  
+}
+
+//laptop
+.header{
+  @include breakpoint(laptop-sm,min ){
+    background-image: url('../images/desktop/image-header.jpg');
+    height: 100vh;
+
+   
+    .hero{
+      margin-block-start:  22rem;
+      &__title{
+        font-size: 5rem;
+      }
+    }
+  }
+}
+.main{
+  @include breakpoint(laptop-sm,min ){
+    .brand{
+      display: flex;
+      flex-direction: row-reverse;
+      justify-items: center;
+      align-items: center;
+
+      img{
+        width: 50%;
+      }
+      &__content{
+        text-align: left;
+        padding: 8rem 3rem;
+      }
+
+      &-r{
+      flex-direction: row;
+      }
+        
+    }
+
+    .service{
+      background-image: url('../images/desktop/image-graphic-design.jpg');
+      
+      &-m{
+      background-image: url('../images/desktop/image-photography.jpg');
+
+      }
+    }
+
+    .gallery{
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: repeat(2,1fr 200px);
+      grid-template-rows:1fr;
+      height: 100%;
+      .milk{
+        grid-column: 1/2;
+        background-image: url('../images/desktop/image-gallery-milkbottles.jpg');
+        background-position: top center;
+      }
+       
+      .orange{
+        grid-column: 2/3;
+        background-image: url('../images/desktop/image-gallery-orange.jpg');
+        background-position: bottom;
+
+      }
+      .cone{
+        grid-column: 3/4;
+        background-image: url('../images/desktop/image-gallery-cone.jpg');
+        background-position: top center;
+      }
+      .sugar{
+        grid-column: 4 / -1;
+        background-image: url('../images/desktop/image-gallery-sugarcubes.jpg');
+        background-position: top center;
+
+      }
+    }
+  }
+}
